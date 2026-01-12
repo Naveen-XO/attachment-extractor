@@ -1,0 +1,29 @@
+{
+  "field_confidence_threshold": 0.75,
+  "image_text_minimum_chars": 50,
+  "pdf_text_minimum_chars": 100,
+  "required_fields_for_actionable": ["pickup_number", "scheduled_date", "weight"],
+  "all_extractable_fields": [
+    "pickup_number",
+    "scheduled_date",
+    "material",
+    "weight",
+    "weight_unit",
+    "reference_number"
+  ],
+  "image_signal_keywords": [
+    "pickup",
+    "pkg",
+    "scheduled",
+    "date",
+    "weight",
+    "kg",
+    "lbs",
+    "tons",
+    "material",
+    "reference",
+    "ref"
+  ],
+  "llm_fallback_trigger_threshold": 0.5,
+  "llm_fallback_min_fields": 3
+}

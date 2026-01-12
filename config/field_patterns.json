@@ -1,0 +1,121 @@
+{
+    "pickup_number": {
+        "patterns": [
+            "(?i)(?:pickup|pkg|package)\\s*#?\\s*[:-]?\\s*([A-Z0-9-]+)",
+            "(?i)(?:pickup|pkg)\\s*(?:number|no|num|id)\\s*[:-]?\\s*([A-Z0-9-]+)",
+            "\\b([A-Z]{2,3}-\\d{4,}-\\d{3,})\\b",
+            "\\b(PKG\\d{6,})\\b"
+        ],
+        "keywords": [
+            "pickup",
+            "pkg",
+            "package number",
+            "pickup number",
+            "pickup id"
+        ],
+        "context_window": 50
+    },
+    "scheduled_date": {
+        "patterns": [
+            "(?i)(?:scheduled|pickup|collection)\\s*(?:date|on)\\s*[:-]?\\s*(\\d{4}-\\d{2}-\\d{2})",
+            "(?i)(?:scheduled|pickup|collection)\\s*(?:date|on)\\s*[:-]?\\s*(\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4})",
+            "(?i)(?:scheduled|pickup|collection)\\s*(?:date|on)\\s*[:-]?\\s*(\\w+\\s+\\d{1,2},?\\s+\\d{4})",
+            "(?i)(?:date|scheduled)\\s*[:-]\\s*(\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4})"
+        ],
+        "keywords": [
+            "scheduled date",
+            "pickup date",
+            "collection date",
+            "date",
+            "scheduled"
+        ],
+        "context_window": 50
+    },
+    "material": {
+        "patterns": [
+            "(?i)(?:material|type|waste|item)\\s*[:-]?\\s*([A-Za-z\\s]+?)(?:\\n|\\.|,|;|$)",
+            "(?i)(?:material|type)\\s*(?:description)?\\s*[:-]?\\s*([A-Za-z\\s]+?)(?:\\n|\\.|,)"
+        ],
+        "keywords": [
+            "material",
+            "waste type",
+            "material type",
+            "item",
+            "recyclable"
+        ],
+        "common_values": [
+            "mixed recyclables",
+            "paper",
+            "cardboard",
+            "plastic",
+            "metal",
+            "glass",
+            "organic",
+            "e-waste",
+            "construction debris",
+            "general waste"
+        ],
+        "context_window": 60
+    },
+    "weight": {
+        "patterns": [
+            "(?i)(?:weight|wt|mass)\\s*[:-]?\\s*(\\d+\\.?\\d*)\\s*(?:kg|lbs?|tons?|kgs)?",
+            "(\\d+\\.?\\d*)\\s*(?:kg|lbs?|tons?)",
+            "(?i)(?:weight|wt)\\s*[:-]?\\s*(\\d+\\.?\\d*)"
+        ],
+        "keywords": [
+            "weight",
+            "wt",
+            "mass",
+            "kg",
+            "lbs",
+            "tons"
+        ],
+        "context_window": 40
+    },
+    "weight_unit": {
+        "patterns": [
+            "(?i)(kg|kgs|kilograms?)",
+            "(?i)(lbs?|pounds?)",
+            "(?i)(tons?|tonnes?|mt)"
+        ],
+        "normalization": {
+            "kg": [
+                "kg",
+                "kgs",
+                "kilogram",
+                "kilograms"
+            ],
+            "lbs": [
+                "lb",
+                "lbs",
+                "pound",
+                "pounds"
+            ],
+            "tons": [
+                "ton",
+                "tons",
+                "tonne",
+                "tonnes",
+                "mt"
+            ]
+        },
+        "context_window": 20
+    },
+    "reference_number": {
+        "patterns": [
+            "(?i)(?:reference|ref|order)\\s*#?\\s*[:-]?\\s*([A-Z0-9-]+)",
+            "(?i)(?:ref|reference)\\s*(?:number|no|num|id)\\s*[:-]?\\s*([A-Z0-9-]+)",
+            "\\b(REF-[A-Z0-9-]+)\\b",
+            "\\b(ORD\\d{6,})\\b"
+        ],
+        "keywords": [
+            "reference",
+            "ref",
+            "reference number",
+            "order number",
+            "order id"
+        ],
+        "context_window": 50
+    }
+}

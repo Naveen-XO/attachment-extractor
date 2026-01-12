@@ -1,0 +1,34 @@
+{
+    "audio": [
+        ".mp3",
+        ".wav",
+        ".m4a",
+        ".aac",
+        ".flac",
+        ".ogg",
+        ".wma"
+    ],
+    "image": [
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".gif",
+        ".bmp",
+        ".tiff",
+        ".tif",
+        ".webp"
+    ],
+    "pdf": [
+        ".pdf"
+    ],
+    "csv": [
+        ".csv",
+        ".tsv"
+    ],
+    "document": [
+        ".doc",
+        ".docx",
+        ".txt",
+        ".rtf"
+    ]
+}

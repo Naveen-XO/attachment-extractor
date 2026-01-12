@@ -1,0 +1,47 @@
+{
+    "record_id": "rec_00001",
+    "source_file": "Email Attachments/pickup_confirmation_12345.pdf",
+    "source_row": null,
+    "file_type": "pdf",
+    "extracted_fields": {
+        "pickup_number": {
+            "value": "PKG-2026-00123",
+            "confidence": 0.95,
+            "extraction_method": "pattern"
+        },
+        "scheduled_date": {
+            "value": "2026-01-15",
+            "confidence": 0.90,
+            "extraction_method": "pattern"
+        },
+        "material": {
+            "value": "Mixed Recyclables",
+            "confidence": 0.85,
+            "extraction_method": "llm"
+        },
+        "weight": {
+            "value": 450.0,
+            "confidence": 0.92,
+            "extraction_method": "pattern"
+        },
+        "weight_unit": {
+            "value": "kg",
+            "confidence": 0.95,
+            "extraction_method": "pattern"
+        },
+        "reference_number": {
+            "value": "REF-ABC-789",
+            "confidence": 0.88,
+            "extraction_method": "pattern"
+        }
+    },
+    "actionable": true,
+    "notes": "Used hybrid extraction (pattern + LLM); Extracted 6/6 fields",
+    "metadata": {
+        "processed_at": "2026-01-11T02:43:00+05:30",
+        "processing_time_ms": 1234,
+        "extraction_method": "hybrid",
+        "average_confidence": 0.91,
+        "ocr_quality": 1.0
+    }
+}

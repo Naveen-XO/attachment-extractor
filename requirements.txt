@@ -1,0 +1,32 @@
+# Email Attachment Processing System
+# Main dependencies for local Windows execution
+
+# Core dependencies
+python-dateutil>=2.8.2      # Flexible date parsing
+jsonschema>=4.17.0          # JSON schema validation
+
+# OCR and image processing
+pytesseract>=0.3.10         # Tesseract OCR wrapper
+Pillow>=10.0.0              # Image processing
+pdf2image>=1.16.3           # PDF to image conversion
+
+# PDF processing
+PyPDF2>=3.0.0               # PDF text extraction
+pdfplumber>=0.10.0          # Alternative PDF parser
+
+# LLM integration (local)
+# Option 1: Use Ollama (requires Ollama installed separately)
+# ollama>=0.1.0
+
+# Option 2: Use Google Gemini API (requires API key)
+google-generativeai>=0.3.0
+
+# Logging and utilities
+colorama>=0.4.6             # Colored terminal output (Windows)
+tqdm>=4.65.0                # Progress bars
+
+# Testing and validation
+pytest>=7.3.0
+
+# UI (Phase 1)
+streamlit>=1.30.0
