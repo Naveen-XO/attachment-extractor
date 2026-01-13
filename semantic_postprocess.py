@@ -13,7 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / 'src'))
 
 from logger import create_logger
-from extractors.semantic_analyzer import SemanticAnalyzer
+# Note: SemanticAnalyzer imported conditionally based on ENABLE_AI flag
 
 
 def load_text_cache(input_dir: Path, logger) -> dict:
@@ -237,14 +237,45 @@ def main():
     
     args = parser.parse_args()
     
-    # Get API key
+    # Load feature flags - exit early if AI is disabled
+    feature_flags_path = Path(__file__) / 'config' / 'feature_flags.json'
+    try:
+        with open(feature_flags_path, 'r') as f:
+            feature_flags = json.load(f)
+    except FileNotFoundError:
+        print(f"ERROR: Feature flags file not found at {feature_flags_path}")
+        return 1
+    
+    enable_ai = feature_flags.get('ENABLE_AI', False)
+    
+    if not enable_ai:
+        print("=" * 80)
+        print("SEMANTIC ANALYSIS DISABLED")
+        print("=" * 80)
+        print("AI/LLM functionality is currently disabled (ENABLE_AI=false).")
+        print("Semantic post-processing requires AI to be enabled.")
+        print("")
+        print("To enable:")
+        print("  1. Edit config/feature_flags.json")
+        print("  2. Set 'ENABLE_AI': true")
+        print("  3. Re-run this script")
+        print("=" * 80)
+        return 0
+    
+    # Get API key (only needed when AI is enabled)
     api_key = args.gemini_api_key or os.getenv('GOOGLE_API_KEY')
     if not api_key:
-        print("ERROR: Google Gemini API key required. Set --gemini-api-key or GOOGLE_API_KEY environment variable.")
+        print("ERROR: Google Gemini API key required when ENABLE_AI=true.")
+        print("Set --gemini-api-key or GOOGLE_API_KEY environment variable.")
         return 1
     
     # Initialize logger
     logger = create_logger(log_dir="logs", log_level=args.log_level)
+    
+    # Import AI modules (only after confirming AI is enabled)
+    logger.info("AI enabled - importing semantic analyzer...")
+    from extractors.semantic_analyzer import SemanticAnalyzer
+    logger.info("Semantic analyzer module loaded")
     
     # Run semantic analysis
     try:

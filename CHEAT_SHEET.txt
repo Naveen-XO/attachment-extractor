@@ -1,0 +1,136 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║          📋 DOCUMENT EXTRACTION TOOL - ONE-PAGE CHEAT SHEET                ║
+║                        (Print and Keep at Your Desk)                       ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  🚀 QUICK START - DO THIS EVERY TIME                                    │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  1. Put all your documents in ONE folder
+     Example: C:\MyDocuments\TodaysBatch\
+
+  2. Double-click: EXTRACT.bat
+
+  3. Type your folder path when asked
+
+  4. Wait for "SUCCESS!"
+
+  5. Open the 'output' folder to see results
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  📂 WHERE TO FIND YOUR RESULTS                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  output\summary.txt     → Quick overview (open in Notepad)
+  output\index.json      → All data (open in Excel)
+  output\records\        → Individual files
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  ⏱️ HOW LONG IT TAKES                                                   │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  10 files    =  ~30 seconds
+  100 files   =  ~2-3 minutes
+  1000 files  =  ~20-30 minutes
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  ✅ WHAT FILES IT CAN READ                                              │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  ✓ PDFs (both regular and scanned)
+  ✓ Images (JPG, PNG, TIFF)
+  ✓ CSV/Excel files
+  ✗ Audio/video files (skipped)
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  📊 WHAT DATA IT EXTRACTS                                               │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  • Pickup numbers          (e.g., PKG-2026-00123)
+  • Dates                   (e.g., 2026-01-15)
+  • Weights                 (e.g., 450 kg)
+  • Materials               (e.g., Mixed Recyclables)
+  • Reference numbers       (e.g., REF-ABC-789)
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  ⚠️ COMMON PROBLEMS                                                     │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  Problem: "Python is not recognized"
+  Fix:     Python not installed → Download from python.org
+
+  Problem: "Folder not found"
+  Fix:     Check folder path spelling
+
+  Problem: No results created
+  Fix:     Check logs\errors.log for details
+
+  Problem: Processing is slow
+  Fix:     Normal for large batches, just wait
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  🆘 WHEN TO ASK FOR HELP                                                │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  • Setup fails
+  • Error messages appear
+  • No results after processing
+  • Results look wrong
+
+  What to share:
+    1. What you were doing
+    2. Error message (exact text)
+    3. File: logs\errors.log
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  📝 MY PERSONAL NOTES                                                   │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  My usual folder:
+  _________________________________________________________________
+
+  Typical command:
+  _________________________________________________________________
+
+  Contact for help:
+  Name: ___________________________________________________________
+  Email: __________________________________________________________
+  Phone: __________________________________________________________
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  💡 IMPORTANT TIPS                                                      │
+└─────────────────────────────────────────────────────────────────────────┘
+
+  ✓ Test with 10 files before doing 1000
+  ✓ Check summary.txt after each run
+  ✓ Keep the output folder backed up
+  ✓ Don't close PowerShell while it's running
+  ✓ If unsure, ask - don't guess!
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  🎯 THE 3-STEP WORKFLOW                                                 │
+└─────────────────────────────────────────────────────────────────────────┘
+
+     [Documents] → [EXTRACT.bat] → [Output Folder]
+                    (just click!)      (your data!)
+
+
+════════════════════════════════════════════════════════════════════════════
+
+Version: 1.0                     Date: January 2026
+For full instructions, see: FOR_NON_TECHNICAL_USERS.md
+
+════════════════════════════════════════════════════════════════════════════

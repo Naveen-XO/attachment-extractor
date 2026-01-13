@@ -1,0 +1,18 @@
+{
+    "_description": "Feature flags for controlling system behavior",
+    "_instructions": "Set ENABLE_AI to true to activate LLM-based extraction and semantic analysis",
+    "ENABLE_AI": false,
+    "_ai_behavior_when_false": [
+        "No AI/LLM modules imported at runtime",
+        "No Gemini API calls",
+        "No semantic analysis",
+        "No LLM-based field extraction",
+        "Pure OCR + pattern matching only"
+    ],
+    "_ai_behavior_when_true": [
+        "LLM modules imported as needed",
+        "Gemini API enabled for fallback extraction",
+        "Semantic analysis available via semantic_postprocess.py",
+        "Hybrid extraction (pattern + LLM)"
+    ]
+}

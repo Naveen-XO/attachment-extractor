@@ -16,14 +16,15 @@ class FieldExtractor:
         Args:
             logger: Logger instance
             text_parser: TextParser instance
-            llm_extractor: LLMExtractor instance
+            llm_extractor: LLMExtractor instance or None (when AI disabled)
             confidence_scorer: ConfidenceScorer instance
             config_path: Path to thresholds configuration
         """
         self.logger = logger
         self.text_parser = text_parser
-        self.llm_extractor = llm_extractor
+        self.llm_extractor = llm_extractor  # Can be None when ENABLE_AI=false
         self.confidence_scorer = confidence_scorer
+        self.ai_enabled = llm_extractor is not None
         
         with open(config_path, 'r') as f:
             config = json.load(f)
@@ -132,14 +133,27 @@ class FieldExtractor:
         self.logger.debug("Applying pattern-based extraction")
         pattern_results = self.text_parser.extract_all_fields(text)
         
-        # Step 2: Evaluate pattern results
-        should_use_llm = self.should_trigger_llm_fallback(pattern_results)
-        
-        # Step 3: SAFE MODE - LLM disabled for overnight processing
-        llm_results = None
-        # Force LLM to be skipped
+        # Step 2: Evaluate pattern results and check if AI is enabled
         should_use_llm = False
-        self.logger.debug("SAFE MODE: LLM extraction disabled for overnight processing")
+        
+        if self.ai_enabled:
+            should_use_llm = self.should_trigger_llm_fallback(pattern_results)
+        
+        # Step 3: Apply LLM fallback if enabled and triggered
+        llm_results = None
+        
+        if should_use_llm:
+            self.logger.debug("Pattern extraction insufficient, triggering LLM fallback")
+            llm_results = self.llm_extractor.extract_fields(text)
+            
+            if llm_results:
+                # Validate and normalize LLM output
+                llm_results = self.llm_extractor.validate_and_normalize(llm_results)
+        else:
+            if not self.ai_enabled:
+                self.logger.debug("AI disabled - LLM extraction skipped")
+            else:
+                self.logger.debug("Pattern extraction sufficient - LLM not needed")
         
         # Step 4: Merge results
         extracted_fields = self.merge_pattern_and_llm_results(

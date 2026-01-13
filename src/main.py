@@ -22,11 +22,11 @@ from handlers.image_handler import ImageHandler
 from handlers.pdf_handler import PDFHandler
 from handlers.csv_handler import CSVHandler
 
-# Extractors
+# Extractors (OCR and parsing - always needed)
 from extractors.ocr_engine import OCREngine
-from extractors.llm_extractor import LLMExtractor
 from extractors.text_parser import TextParser
 from extractors.field_extractor import FieldExtractor
+# Note: LLMExtractor imported conditionally based on ENABLE_AI flag
 
 
 def process_file(file_path: Path, file_type: str, handlers: dict, field_extractor: FieldExtractor,
@@ -187,13 +187,22 @@ def main():
         action='store_true',
         help="Show what would be processed without actually extracting (no LLM/OCR calls)"
     )
-    
     args = parser.parse_args()
     
-    # Get API key from args or environment
+    # Load feature flags
+    import json
+    feature_flags_path = Path(__file__).parent.parent / 'config' / 'feature_flags.json'
+    with open(feature_flags_path, 'r') as f:
+        feature_flags = json.load(f)
+    
+    enable_ai = feature_flags.get('ENABLE_AI', False)
+    
+    # Get API key from args or environment (only required if AI is enabled)
     api_key = args.gemini_api_key or os.getenv('GOOGLE_API_KEY')
-    if not api_key:
-        print("ERROR: Google Gemini API key required. Set --gemini-api-key or GOOGLE_API_KEY environment variable.")
+    
+    if enable_ai and not api_key:
+        print("ERROR: Google Gemini API key required when ENABLE_AI=true.")
+        print("Set --gemini-api-key or GOOGLE_API_KEY environment variable.")
         return 1
     
     # Initialize logger
@@ -201,6 +210,7 @@ def main():
     logger.info("=" * 80)
     logger.info("Email Attachment Processing System - Starting")
     logger.info("=" * 80)
+    logger.info(f"AI/LLM Mode: {'ENABLED' if enable_ai else 'DISABLED (extraction-only mode)'}")
     
     start_time = time.time()
     
@@ -214,8 +224,18 @@ def main():
         
         # Initialize extractors
         ocr_engine = OCREngine(logger, tesseract_path=args.tesseract_path)
-        llm_extractor = LLMExtractor(logger, api_key=api_key)
         text_parser = TextParser(logger)
+        
+        # Conditionally import and initialize LLM extractor
+        llm_extractor = None
+        if enable_ai:
+            logger.info("AI enabled - importing LLM modules...")
+            from extractors.llm_extractor import LLMExtractor
+            llm_extractor = LLMExtractor(logger, api_key=api_key)
+            logger.info("LLM extractor initialized")
+        else:
+            logger.info("AI disabled - LLM modules will not be imported")
+        
         field_extractor = FieldExtractor(logger, text_parser, llm_extractor, confidence_scorer)
         
         # Initialize handlers
