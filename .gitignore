@@ -34,6 +34,9 @@ temp/
 *.key
 secrets.json
 
+# Environment-specific configs (use .dev.json or .prod.json templates)
+config/feature_flags.json
+
 # IDE
 .vscode/
 .idea/

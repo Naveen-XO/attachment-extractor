@@ -1,0 +1,23 @@
+{
+    "_description": "Production environment feature flags",
+    "_environment": "production",
+    "_instructions": "This config is for PRODUCTION use - AI disabled by default for speed and cost",
+    "ENABLE_AI": false,
+    "_production_notes": [
+        "AI is DISABLED for production (extraction-only mode)",
+        "No API key required",
+        "Fast, deterministic processing",
+        "Zero LLM costs",
+        "Enable AI only when needed for complex documents"
+    ],
+    "_ai_behavior_when_false": [
+        "No AI/LLM modules imported at runtime",
+        "No Gemini API calls",
+        "No semantic analysis",
+        "No LLM-based field extraction",
+        "Pure OCR + pattern matching only"
+    ],
+    "debug_mode": false,
+    "verbose_logging": false,
+    "test_mode_default": false
+}

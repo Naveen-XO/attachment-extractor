@@ -1,0 +1,22 @@
+{
+    "_description": "Development environment feature flags",
+    "_environment": "development",
+    "_instructions": "This config is for DEVELOPMENT/TESTING only",
+    "ENABLE_AI": true,
+    "_dev_notes": [
+        "AI is ENABLED in dev for testing",
+        "Requires GOOGLE_API_KEY to be set",
+        "Used for development, debugging, and testing new features",
+        "Switch to production config before deploying"
+    ],
+    "_ai_behavior_when_true": [
+        "LLM modules imported on startup",
+        "Gemini API enabled for fallback extraction",
+        "Semantic analysis available",
+        "Hybrid extraction (pattern + LLM)",
+        "Slower but more accurate"
+    ],
+    "debug_mode": true,
+    "verbose_logging": true,
+    "test_mode_default": true
+}
